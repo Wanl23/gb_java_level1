@@ -18,66 +18,49 @@ public class Main {
 
         //        Написать метод, которому в качестве параметра передается строка, обозначающая имя, метод должен
         //        вернуть приветственное сообщение «Привет, переданное_имя!»; Вывести приветствие в консоль.
-        helloName("Any name");
+        System.out.println(helloName("Any name"));
 
         //        *Написать метод, который определяет является ли год високосным. Каждый 4-й год является високосным,
         //        кроме каждого 100-го, при этом каждый 400-й – високосный. Для проверки работы вывести
         //        результаты работы метода в консоль
-        ifLeapYear(2018);
-        ifLeapYear(2016);
-        ifLeapYear(2000);
-        ifLeapYear(1900);
+        System.out.println(ifLeapYear(2018));
+        System.out.println(ifLeapYear(2016));
+        System.out.println(ifLeapYear(2000));
+        System.out.println(ifLeapYear(1900));
     }
 
     public static float mathExpression(int a, int b, int c, int d){
-        float result = ((float)a * ((float)b + ((float)c / (float)d)));
+        float result = (a * (b + ((float)c / d)));
         return result;
     }
 
     public static boolean ifNumberBetween10and20(int a, int b){
         boolean result = true;
-        if((a+b) > 10 && (a+b) <= 20){
-            System.out.println("a + b is between 10 and 20");
+        int c = a+b;
+        if(c > 10 && c <= 20){
             return true;
         }
         else{
-            System.out.println("a + b isn't between 10 and 20");
             return false;
         }
     }
 
     public static void positivOrNegative(int a){
         if(a >= 0){
-            System.out.println("the " + a + " is positive");
+            System.out.println(a + " is positive");
         }
         else{
-            System.out.println("the " + a + " is negative");
+            System.out.println( a + " is negative");
         }
     }
 
     public static String helloName(String name){
         String helloMessage = "Привет "+ name + "!";
-        System.out.println(helloMessage);
         return helloMessage;
     }
 
-    public static void ifLeapYear(int year){
-        if((year % 4) == 0){
-            if((year % 100) == 0){
-                if ((year % 400) ==0){
-                    System.out.println(year + " год високосный");
-                }
-                else {
-                    System.out.println(year + " год не високосный");
-                }
-            }
-            else{
-                System.out.println(year + " год високосный");
-            }
-        }
-        else{
-            System.out.println(year + " год не високосный");
-        }
+    public static boolean ifLeapYear(int year){
+        return (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
     }
 
 
