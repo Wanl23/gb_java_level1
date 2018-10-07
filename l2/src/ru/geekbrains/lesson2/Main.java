@@ -3,7 +3,7 @@ package ru.geekbrains.lesson2;
 import java.util.Arrays;
 
 public class Main {
-//1 Задать целочисленный массив, состоящий из элементов 0 и 1. Например:
+    //1 Задать целочисленный массив, состоящий из элементов 0 и 1. Например:
 // [ 1, 1, 0, 0, 1, 0, 1, 1, 0, 0 ]. Написать метод, заменяющий в принятом массиве 0 на 1, 1 на 0;
     public static int[] chenging01(int[] array){
         for(int i = 0; i < array.length; i++){
@@ -11,38 +11,43 @@ public class Main {
         }
         return array;
     }
-//2 Задать пустой целочисленный массив размером 8. Написать метод, который помощью цикла заполнит
+    //2 Задать пустой целочисленный массив размером 8. Написать метод, который помощью цикла заполнит
 // его значениями 1 4 7 10 13 16 19 22;
-    public static int[] createArr(){
-        int[] array = new int[8];
-        for(int i = 0, j = 1; i < 8; i ++, j+=3){
-            array[i]= j;
+    public static void createArr(int[] array, int step, int shift){
+        for(int i = 0; i < 8; i ++){
+            array[i] = shift + i * step;
         }
-        return array;
     }
 
-//3 Задать массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ], написать метод, принимающий на вход массив
+    //3 Задать массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ], написать метод, принимающий на вход массив
 // и умножающий числа меньше 6 на 2;
-    public static int[] modifierForArrayes(int[] array){
+    public static void modifierForArrayes(int[] array){
         for(int i = 0; i < array.length; i++){
-            array[i] *= (array[i] < 6)? 2 : 1;
+            if(array[i] < 6){
+                array[i] *= 2;
+            }
         }
-        return array;
     }
 
-//4 Задать одномерный массив. Написать методы поиска в нём минимального и максимального элемента;
-    public static void minMaxInArray(int[] array){
-        int max = array[0];
+    //4 Задать одномерный массив. Написать методы поиска в нём минимального и максимального элемента;
+    public static int minInArray(int[] array){
         int min = array[0];
         for(int i = 0; i < array.length; i++){
-            max = (array[i] > max)? array[i] : max;
-            min = (array[i] < min)? array[i] : min;
+            if (min > array[i])
+                min = array[i];
         }
-        System.out.printf("minimum = %d, maximum = %d", min, max);
-        System.out.println();
+        return min;
+    }
+    public static int maxInArray(int[] array){
+        int max = array[0];
+        for(int i = 0; i < array.length; i++){
+            if (max < array[i])
+                max = array[i];
+        }
+        return max;
     }
 
-//5 * Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
+    //5 * Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
 // заполнить его диагональные элементы единицами, используя цикл(ы);
     public static void createSquareArray(int size){
         int[][] sqrArray = new int[size][size];
@@ -55,7 +60,7 @@ public class Main {
         }
     }
 
-//6 ** Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен
+    //6 ** Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен
 // вернуть true если в массиве есть место, в котором сумма левой и правой части массива равны. Примеры:
 // checkBalance([1, 1, 1, || 2, 1]) → true, checkBalance ([2, 1, 1, 2, 1]) → false, checkBalance
 // ([10, || 1, 2, 3, 4]) → true. Абстрактная граница показана символами ||, эти символы в массив не входят.
@@ -78,29 +83,33 @@ public class Main {
 // или отрицательным), при этом метод должен циклически сместить все элементы массива на n позиций.
     //!!!!!Не придумал как сделать с вспомогательным массивом!!!!!!
 
-//8 **** Не пользоваться вспомогательным массивом при решении задачи 7.
-public static int[] shiftArray(int[] array, int n) {
-    int length = array.length;
-    if(n < 0) {
-        for (int i = 0; i < (n * -1); i++) {
-            int temp = array[0];
-            for (int j = 0; j < length - 1; j++) {
-                array[j] = array[j + 1];
+    //8 **** Не пользоваться вспомогательным массивом при решении задачи 7.
+    public static void shiftArray(int[] array, int value) {
+        boolean direction;
+        if (value < 0) {
+            direction = true;
+            value = -value;
+        } else {
+            direction = false;
+        }
+        value %= array.length;
+        int last = array.length - 1;
+        for (int i = 0; i < value; i++) {
+            int temp = (direction) ? array[0] : array[last];
+
+            for (int j = 0; j < last; j++) {
+                if (direction)
+                    array[j] = array[j + 1];
+                else
+                    array[last - j] = array[last - j - 1];
             }
-            array[length-1] = temp;
+
+            if (direction)
+                array[last] = temp;
+            else
+                array[0] = temp;
         }
     }
-    else{
-        for(int i = 0; i < n; i++){
-            int temp = array[length - 1];
-            for(int j = length-1; j > 0; j--){
-                array[j] = array[j-1];
-            }
-            array[0] = temp;
-        }
-    }
-    return array;
-}
 
     public static void main(String[] args){
         //1 Задать целочисленный массив, состоящий из элементов 0 и 1. Например:
@@ -110,16 +119,21 @@ public static int[] shiftArray(int[] array, int n) {
 
         //2 Задать пустой целочисленный массив размером 8. Написать метод, который помощью цикла заполнит
         // его значениями 1 4 7 10 13 16 19 22;
-        System.out.println(Arrays.toString(createArr()));
+        int[] arr2 = new int[8];
+        System.out.println("before:" + Arrays.toString(arr2));
+        createArr(arr2, 3, 1);
+        System.out.println("after: " + Arrays.toString(arr2));
 
         //3 Задать массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ], написать метод, принимающий на вход массив
         // и умножающий числа меньше 6 на 2;
         int[] arrayNumbers = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        System.out.println(Arrays.toString(modifierForArrayes(arrayNumbers)));
+        modifierForArrayes(arrayNumbers);
+        System.out.println(Arrays.toString(arrayNumbers));
 
         //4 Задать одномерный массив. Написать методы поиска в нём минимального и максимального элемента;
         int[] minMaxArray = {6, 6, 8, 12, 45, 100, 145, 220, 6, 8, 99, 3, 7};
-        minMaxInArray(minMaxArray);
+        System.out.println(minInArray(minMaxArray));
+        System.out.println(maxInArray(minMaxArray));
 
         //5 * Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
         // заполнить его диагональные элементы единицами, используя цикл(ы);
@@ -138,6 +152,7 @@ public static int[] shiftArray(int[] array, int n) {
 
         //8 **** Не пользоваться вспомогательным массивом при решении задачи 7.
         int[] shiftArray = {1, 2, 3, 4, 5, 6};
-        System.out.println(Arrays.toString(shiftArray(shiftArray, 2)));
+        shiftArray(shiftArray, -2);
+        System.out.println(Arrays.toString(shiftArray));
     }
 }
