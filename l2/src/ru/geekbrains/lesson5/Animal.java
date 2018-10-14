@@ -38,12 +38,12 @@ public abstract class Animal {
             this.jumpRestrictions = (int)(Math.random() * ((1 - 0.3f) + 1)) + 0.3f;
         }
         if(this instanceof Horse){
-            this.runRestrictions = (int)(Math.random() * ((1700 - 1400) + 1)) + 100;
+            this.runRestrictions = (int)(Math.random() * ((1700 - 1400) + 1)) + 1400;
             this.swimRestrictions = (int)(Math.random() * ((120 - 90) + 1)) + 90;
             this.jumpRestrictions = (int)(Math.random() * ((5 - 2.0f) + 1)) + 2.0f;
         }
         if(this instanceof Bird){
-            this.runRestrictions = (int)(Math.random() * ((7 - 4) + 1)) + 400;
+            this.runRestrictions = (int)(Math.random() * ((7 - 4) + 1)) + 4;
             this.swimRestrictions = 0;
             this.jumpRestrictions = (int)(Math.random() * ((1.0f - 0.1f) + 1)) + 0.1f;
         }
